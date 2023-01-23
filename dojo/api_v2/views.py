@@ -135,6 +135,7 @@ from dojo.models import (
     Tool_Type,
     User,
     UserContactInfo,
+    Webhook_Endpoints,
 )
 from dojo.product.queries import (
     get_authorized_app_analysis,
@@ -3307,3 +3308,12 @@ class AnnouncementViewSet(
     filter_backends = (DjangoFilterBackend,)
     filterset_fields = "__all__"
     permission_classes = (permissions.UserHasConfigurationPermissionStaff,)
+
+
+class WebhookEndpointsViewset(
+    DojoModelViewSet
+):
+    serializer_class = serializers.WebhookEndpointsSerializer
+    queryset = Webhook_Endpoints.objects.all()
+    filter_backends = (DjangoFilterBackend,)
+    permission_classes = (IsAuthenticated, DjangoModelPermissions)  # TODO
