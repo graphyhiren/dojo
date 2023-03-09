@@ -70,6 +70,7 @@ from dojo.api_v2.views import (
     UserContactInfoViewSet,
     UserProfileView,
     UsersViewSet,
+    WebhookEndpointsViewset,
 )
 from dojo.api_v2.views import DojoSpectacularAPIView as SpectacularAPIView
 from dojo.banner.urls import urlpatterns as banner_urls
@@ -175,6 +176,7 @@ v2_api.register(r'questionnaire_engagement_questionnaires', QuestionnaireEngagem
 v2_api.register(r'questionnaire_general_questionnaires', QuestionnaireGeneralSurveyViewSet)
 v2_api.register(r'questionnaire_questions', QuestionnaireQuestionViewSet)
 v2_api.register(r'announcements', AnnouncementViewSet)
+v2_api.register(r'notification_webhook_endpoints', WebhookEndpointsViewset)
 ur = []
 ur += dev_env_urls
 ur += endpoint_urls
