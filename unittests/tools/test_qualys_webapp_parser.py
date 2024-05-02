@@ -32,7 +32,7 @@ class TestQualysWebAppParser(DojoTestCase):
 
     def test_qualys_webapp_parser_with_many_vuln_has_many_findings(self):
         testfile = open(
-            get_unit_tests_path() + "/scans/qualys_webapp/qualys_webapp_many_vuln.xml"
+            get_unit_tests_path() + "/scans/qualys_webapp/qualys_webapp_many_vuln.xml",
         )
         parser = QualysWebAppParser()
         findings = parser.get_findings(testfile, Test())
@@ -46,7 +46,7 @@ class TestQualysWebAppParser(DojoTestCase):
 
     def test_qualys_webapp_parser_info_is_vuln(self):
         testfile = open(
-            get_unit_tests_path() + "/scans/qualys_webapp/qualys_webapp_many_vuln.xml"
+            get_unit_tests_path() + "/scans/qualys_webapp/qualys_webapp_many_vuln.xml",
         )
         parser = QualysWebAppParser()
         findings = parser.get_findings(testfile, Test(), True)

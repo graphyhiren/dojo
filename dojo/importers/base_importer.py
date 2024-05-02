@@ -300,7 +300,7 @@ class BaseImporter(ImporterOptions):
         # target end date on the engagement
         if self.test.engagement.engagement_type == 'CI/CD':
             self.test.engagement.target_end = max_safe(
-                [self.scan_date.date(), self.test.engagement.target_end]
+                [self.scan_date.date(), self.test.engagement.target_end],
             )
         # Set the target end date on the test in a similar fashion
         max_test_start_date = max_safe([self.scan_date, self.test.target_end])
@@ -339,7 +339,7 @@ class BaseImporter(ImporterOptions):
             f"new: {len(new_findings)} "
             f"closed: {len(closed_findings)} "
             f"reactivated: {len(reactivated_findings)} "
-            f"untouched: {len(untouched_findings)} "
+            f"untouched: {len(untouched_findings)} ",
         )
         # Create a dictionary to stuff into the test import object
         import_settings = {}
@@ -598,7 +598,7 @@ class BaseImporter(ImporterOptions):
 
     def process_request_response_pairs(
         self,
-        finding: Finding
+        finding: Finding,
     ) -> None:
         """
         Search the unsaved finding for the following attributes to determine
@@ -649,7 +649,7 @@ class BaseImporter(ImporterOptions):
 
     def process_vulnerability_ids(
         self,
-        finding: Finding
+        finding: Finding,
     ) -> Finding:
         """
         Parse the `unsaved_vulnerability_ids` field from findings after they are parsed

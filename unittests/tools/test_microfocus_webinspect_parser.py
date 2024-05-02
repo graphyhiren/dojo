@@ -11,7 +11,7 @@ class TestMicrofocusWebinspectParser(DojoTestCase):
         test.engagement = Engagement()
         test.engagement.product = Product()
         with open(
-            get_unit_tests_path() + "/scans/microfocus_webinspect/Webinspect_no_vuln.xml"
+            get_unit_tests_path() + "/scans/microfocus_webinspect/Webinspect_no_vuln.xml",
         ) as testfile:
             parser = MicrofocusWebinspectParser()
             findings = parser.get_findings(testfile, test)
@@ -22,7 +22,7 @@ class TestMicrofocusWebinspectParser(DojoTestCase):
         test.engagement = Engagement()
         test.engagement.product = Product()
         with open(
-            get_unit_tests_path() + "/scans/microfocus_webinspect/Webinspect_one_vuln.xml"
+            get_unit_tests_path() + "/scans/microfocus_webinspect/Webinspect_one_vuln.xml",
         ) as testfile:
             parser = MicrofocusWebinspectParser()
             findings = parser.get_findings(testfile, test)
@@ -43,7 +43,7 @@ class TestMicrofocusWebinspectParser(DojoTestCase):
         test.engagement = Engagement()
         test.engagement.product = Product()
         with open(
-            get_unit_tests_path() + "/scans/microfocus_webinspect/Webinspect_many_vuln.xml"
+            get_unit_tests_path() + "/scans/microfocus_webinspect/Webinspect_many_vuln.xml",
         )as testfile:
             parser = MicrofocusWebinspectParser()
             findings = parser.get_findings(testfile, test)
@@ -55,7 +55,7 @@ class TestMicrofocusWebinspectParser(DojoTestCase):
             self.assertEqual(525, item.cwe)
             self.assertIsNotNone(item.references)
             self.assertEqual(
-                "1cfe38ee-89f7-4110-ad7c-8fca476b2f04", item.unique_id_from_tool
+                "1cfe38ee-89f7-4110-ad7c-8fca476b2f04", item.unique_id_from_tool,
             )
             self.assertEqual(1, len(item.unsaved_endpoints))
             endpoint = item.unsaved_endpoints[0]
@@ -66,11 +66,11 @@ class TestMicrofocusWebinspectParser(DojoTestCase):
     def test_convert_severity(self):
         with self.subTest("convert info", val="0"):
             self.assertEqual(
-                "Info", MicrofocusWebinspectParser.convert_severity("0")
+                "Info", MicrofocusWebinspectParser.convert_severity("0"),
             )
         with self.subTest("convert medium", val="2"):
             self.assertEqual(
-                "Medium", MicrofocusWebinspectParser.convert_severity("2")
+                "Medium", MicrofocusWebinspectParser.convert_severity("2"),
             )
 
     def test_parse_file_version_18_20(self):
@@ -122,7 +122,7 @@ class TestMicrofocusWebinspectParser(DojoTestCase):
         test.engagement = Engagement()
         test.engagement.product = Product()
         with open(
-            get_unit_tests_path() + "/scans/microfocus_webinspect/issue_7690.xml"
+            get_unit_tests_path() + "/scans/microfocus_webinspect/issue_7690.xml",
         ) as testfile:
             parser = MicrofocusWebinspectParser()
             findings = parser.get_findings(testfile, test)
