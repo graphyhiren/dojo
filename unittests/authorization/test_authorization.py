@@ -167,7 +167,7 @@ class TestAuthorization(DojoTestCase):
 
     def test_role_has_permission_exception(self):
         with self.assertRaisesMessage(RoleDoesNotExistError,
-                'Role 9999 does not exist'):
+                "Role 9999 does not exist"):
             role_has_permission(9999, Permissions.Product_Type_Edit)
 
     def test_role_has_permission_true(self):
@@ -180,7 +180,7 @@ class TestAuthorization(DojoTestCase):
 
     def test_get_roles_for_permission_exception(self):
         with self.assertRaisesMessage(PermissionDoesNotExistError,
-                'Permission 9999 does not exist'):
+                "Permission 9999 does not exist"):
             get_roles_for_permission(9999)
 
     def test_get_roles_for_permission_success(self):
@@ -192,7 +192,7 @@ class TestAuthorization(DojoTestCase):
         with self.assertRaises(PermissionDenied):
             user_has_permission_or_403(self.user, self.product_type, Permissions.Product_Type_Delete)
 
-    @patch('dojo.models.Product_Type_Member.objects')
+    @patch("dojo.models.Product_Type_Member.objects")
     def test_user_has_permission_or_403_success(self, mock_foo):
         mock_foo.select_related.return_value = mock_foo
         mock_foo.select_related.return_value = mock_foo
@@ -204,14 +204,14 @@ class TestAuthorization(DojoTestCase):
 
     def test_user_has_permission_exception(self):
         with self.assertRaisesMessage(dojo.authorization.authorization.NoAuthorizationImplementedError,
-                'No authorization implemented for class Product_Type_Member and permission 1007'):
+                "No authorization implemented for class Product_Type_Member and permission 1007"):
             user_has_permission(self.user, self.product_type_member, Permissions.Product_Type_Delete)
 
     def test_user_has_permission_product_type_no_member(self):
         result = user_has_permission(self.user, self.product_type, Permissions.Product_Type_View)
         self.assertFalse(result)
 
-    @patch('dojo.models.Product_Type_Member.objects')
+    @patch("dojo.models.Product_Type_Member.objects")
     def test_user_has_permission_product_type_no_permissions(self, mock_foo):
         mock_foo.select_related.return_value = mock_foo
         mock_foo.select_related.return_value = mock_foo
@@ -231,7 +231,7 @@ class TestAuthorization(DojoTestCase):
 
         self.user.is_superuser = False
 
-    @patch('dojo.models.Product_Type_Member.objects')
+    @patch("dojo.models.Product_Type_Member.objects")
     def test_user_has_permission_product_type_success(self, mock_foo):
         mock_foo.select_related.return_value = mock_foo
         mock_foo.select_related.return_value = mock_foo
@@ -246,7 +246,7 @@ class TestAuthorization(DojoTestCase):
         result = user_has_permission(self.user, self.product, Permissions.Product_View)
         self.assertFalse(result)
 
-    @patch('dojo.models.Product_Member.objects')
+    @patch("dojo.models.Product_Member.objects")
     def test_user_has_permission_product_no_permissions(self, mock_foo):
         mock_foo.select_related.return_value = mock_foo
         mock_foo.select_related.return_value = mock_foo
@@ -257,7 +257,7 @@ class TestAuthorization(DojoTestCase):
         self.assertFalse(result)
         mock_foo.filter.assert_called_with(user=self.user)
 
-    @patch('dojo.models.Product_Type_Member.objects')
+    @patch("dojo.models.Product_Type_Member.objects")
     def test_user_has_permission_product_product_type_success(self, mock_foo):
         mock_foo.select_related.return_value = mock_foo
         mock_foo.select_related.return_value = mock_foo
@@ -268,7 +268,7 @@ class TestAuthorization(DojoTestCase):
         self.assertTrue(result)
         mock_foo.filter.assert_called_with(user=self.user)
 
-    @patch('dojo.models.Product_Member.objects')
+    @patch("dojo.models.Product_Member.objects")
     def test_user_has_permission_product_success(self, mock_foo):
         mock_foo.select_related.return_value = mock_foo
         mock_foo.select_related.return_value = mock_foo
@@ -279,7 +279,7 @@ class TestAuthorization(DojoTestCase):
         self.assertTrue(result)
         mock_foo.filter.assert_called_with(user=self.user)
 
-    @patch('dojo.models.Product_Member.objects')
+    @patch("dojo.models.Product_Member.objects")
     def test_user_has_permission_engagement_no_permissions(self, mock_foo):
         mock_foo.select_related.return_value = mock_foo
         mock_foo.select_related.return_value = mock_foo
@@ -290,7 +290,7 @@ class TestAuthorization(DojoTestCase):
         self.assertFalse(result)
         mock_foo.filter.assert_called_with(user=self.user)
 
-    @patch('dojo.models.Product_Member.objects')
+    @patch("dojo.models.Product_Member.objects")
     def test_user_has_permission_engagement_success(self, mock_foo):
         mock_foo.select_related.return_value = mock_foo
         mock_foo.select_related.return_value = mock_foo
@@ -301,7 +301,7 @@ class TestAuthorization(DojoTestCase):
         self.assertTrue(result)
         mock_foo.filter.assert_called_with(user=self.user)
 
-    @patch('dojo.models.Product_Member.objects')
+    @patch("dojo.models.Product_Member.objects")
     def test_user_has_permission_test_no_permissions(self, mock_foo):
         mock_foo.select_related.return_value = mock_foo
         mock_foo.select_related.return_value = mock_foo
@@ -312,7 +312,7 @@ class TestAuthorization(DojoTestCase):
         self.assertFalse(result)
         mock_foo.filter.assert_called_with(user=self.user)
 
-    @patch('dojo.models.Product_Member.objects')
+    @patch("dojo.models.Product_Member.objects")
     def test_user_has_permission_test_success(self, mock_foo):
         mock_foo.select_related.return_value = mock_foo
         mock_foo.select_related.return_value = mock_foo
@@ -323,7 +323,7 @@ class TestAuthorization(DojoTestCase):
         self.assertTrue(result)
         mock_foo.filter.assert_called_with(user=self.user)
 
-    @patch('dojo.models.Product_Member.objects')
+    @patch("dojo.models.Product_Member.objects")
     def test_user_has_permission_finding_no_permissions(self, mock_foo):
         mock_foo.select_related.return_value = mock_foo
         mock_foo.select_related.return_value = mock_foo
@@ -334,7 +334,7 @@ class TestAuthorization(DojoTestCase):
         self.assertFalse(result)
         mock_foo.filter.assert_called_with(user=self.user)
 
-    @patch('dojo.models.Product_Member.objects')
+    @patch("dojo.models.Product_Member.objects")
     def test_user_has_permission_finding_success(self, mock_foo):
         mock_foo.select_related.return_value = mock_foo
         mock_foo.select_related.return_value = mock_foo
@@ -345,7 +345,7 @@ class TestAuthorization(DojoTestCase):
         self.assertTrue(result)
         mock_foo.filter.assert_called_with(user=self.user)
 
-    @patch('dojo.models.Product_Member.objects')
+    @patch("dojo.models.Product_Member.objects")
     def test_user_has_permission_stub_finding_no_permissions(self, mock_foo):
         mock_foo.select_related.return_value = mock_foo
         mock_foo.select_related.return_value = mock_foo
@@ -356,7 +356,7 @@ class TestAuthorization(DojoTestCase):
         self.assertFalse(result)
         mock_foo.filter.assert_called_with(user=self.user)
 
-    @patch('dojo.models.Product_Member.objects')
+    @patch("dojo.models.Product_Member.objects")
     def test_user_has_permission_stub_finding_success(self, mock_foo):
         mock_foo.select_related.return_value = mock_foo
         mock_foo.select_related.return_value = mock_foo
@@ -367,7 +367,7 @@ class TestAuthorization(DojoTestCase):
         self.assertTrue(result)
         mock_foo.filter.assert_called_with(user=self.user)
 
-    @patch('dojo.models.Product_Member.objects')
+    @patch("dojo.models.Product_Member.objects")
     def test_user_has_permission_endpoint_no_permissions(self, mock_foo):
         mock_foo.select_related.return_value = mock_foo
         mock_foo.select_related.return_value = mock_foo
@@ -378,7 +378,7 @@ class TestAuthorization(DojoTestCase):
         self.assertFalse(result)
         mock_foo.filter.assert_called_with(user=self.user)
 
-    @patch('dojo.models.Product_Member.objects')
+    @patch("dojo.models.Product_Member.objects")
     def test_user_has_permission_endpoint_success(self, mock_foo):
         mock_foo.select_related.return_value = mock_foo
         mock_foo.select_related.return_value = mock_foo
@@ -393,7 +393,7 @@ class TestAuthorization(DojoTestCase):
         result = user_has_permission(self.user, self.product_type_member_owner, Permissions.Product_Type_Member_Delete)
         self.assertTrue(result)
 
-    @patch('dojo.models.Product_Type_Member.objects')
+    @patch("dojo.models.Product_Type_Member.objects")
     def test_user_has_permission_product_type_member_no_permission(self, mock_foo):
         other_user = User()
         other_user.id = 2
@@ -411,7 +411,7 @@ class TestAuthorization(DojoTestCase):
         self.assertFalse(result)
         mock_foo.filter.assert_called_with(user=other_user)
 
-    @patch('dojo.models.Product_Type_Member.objects')
+    @patch("dojo.models.Product_Type_Member.objects")
     def test_user_has_permission_product_type_member_success(self, mock_foo):
         other_user = User()
         other_user.id = 2
@@ -433,7 +433,7 @@ class TestAuthorization(DojoTestCase):
         result = user_has_permission(self.user, self.product_member_owner, Permissions.Product_Member_Delete)
         self.assertTrue(result)
 
-    @patch('dojo.models.Product_Member.objects')
+    @patch("dojo.models.Product_Member.objects")
     def test_user_has_permission_product_member_no_permission(self, mock_foo):
         other_user = User()
         other_user.id = 2
@@ -451,7 +451,7 @@ class TestAuthorization(DojoTestCase):
         self.assertFalse(result)
         mock_foo.filter.assert_called_with(user=other_user)
 
-    @patch('dojo.models.Product_Member.objects')
+    @patch("dojo.models.Product_Member.objects")
     def test_user_has_permission_product_member_success(self, mock_foo):
         other_user = User()
         other_user.id = 2
@@ -469,7 +469,7 @@ class TestAuthorization(DojoTestCase):
         self.assertTrue(result)
         mock_foo.filter.assert_called_with(user=other_user)
 
-    @patch('dojo.models.Product_Group.objects')
+    @patch("dojo.models.Product_Group.objects")
     def test_user_has_group_product_no_permissions(self, mock_foo):
         mock_foo.select_related.return_value = mock_foo
         mock_foo.select_related.return_value = mock_foo
@@ -480,7 +480,7 @@ class TestAuthorization(DojoTestCase):
         self.assertFalse(result)
         mock_foo.filter.assert_called_with(group__users=self.user)
 
-    @patch('dojo.models.Product_Group.objects')
+    @patch("dojo.models.Product_Group.objects")
     def test_user_has_group_product_success(self, mock_foo):
         mock_foo.select_related.return_value = mock_foo
         mock_foo.select_related.return_value = mock_foo
@@ -491,7 +491,7 @@ class TestAuthorization(DojoTestCase):
         self.assertTrue(result)
         mock_foo.filter.assert_called_with(group__users=self.user)
 
-    @patch('dojo.models.Product_Type_Group.objects')
+    @patch("dojo.models.Product_Type_Group.objects")
     def test_user_has_group_product_type_no_permissions(self, mock_foo):
         mock_foo.select_related.return_value = mock_foo
         mock_foo.select_related.return_value = mock_foo
@@ -502,7 +502,7 @@ class TestAuthorization(DojoTestCase):
         self.assertFalse(result)
         mock_foo.filter.assert_called_with(group__users=self.user)
 
-    @patch('dojo.models.Product_Type_Group.objects')
+    @patch("dojo.models.Product_Type_Group.objects")
     def test_user_has_group_product_type_success(self, mock_foo):
         mock_foo.select_related.return_value = mock_foo
         mock_foo.select_related.return_value = mock_foo
@@ -529,7 +529,7 @@ class TestAuthorization(DojoTestCase):
         result = user_has_global_permission(self.user5, Permissions.Product_Type_Add)
         self.assertTrue(result)
 
-    @patch('dojo.models.Dojo_Group.objects')
+    @patch("dojo.models.Dojo_Group.objects")
     def test_user_in_group_with_global_role_no_permission(self, mock_foo):
         mock_foo.select_related.return_value = mock_foo
         mock_foo.select_related.return_value = mock_foo
@@ -539,7 +539,7 @@ class TestAuthorization(DojoTestCase):
         self.assertFalse(result)
         mock_foo.filter.assert_called_with(users=self.user3)
 
-    @patch('dojo.models.Dojo_Group.objects')
+    @patch("dojo.models.Dojo_Group.objects")
     def test_user_in_group_with_global_role_success(self, mock_foo):
         mock_foo.select_related.return_value = mock_foo
         mock_foo.select_related.return_value = mock_foo
@@ -549,7 +549,7 @@ class TestAuthorization(DojoTestCase):
         self.assertTrue(result)
         mock_foo.filter.assert_called_with(users=self.user3)
 
-    @patch('dojo.models.Dojo_Group_Member.objects')
+    @patch("dojo.models.Dojo_Group_Member.objects")
     def test_dojo_group_no_permission(self, mock_foo):
         mock_foo.select_related.return_value = mock_foo
         mock_foo.select_related.return_value = mock_foo
@@ -559,7 +559,7 @@ class TestAuthorization(DojoTestCase):
         self.assertFalse(result)
         mock_foo.filter.assert_called_with(user=self.user4)
 
-    @patch('dojo.models.Dojo_Group_Member.objects')
+    @patch("dojo.models.Dojo_Group_Member.objects")
     def test_dojo_group_success(self, mock_foo):
         mock_foo.select_related.return_value = mock_foo
         mock_foo.select_related.return_value = mock_foo
@@ -569,7 +569,7 @@ class TestAuthorization(DojoTestCase):
         self.assertTrue(result)
         mock_foo.filter.assert_called_with(user=self.user4)
 
-    @patch('dojo.models.Dojo_Group_Member.objects')
+    @patch("dojo.models.Dojo_Group_Member.objects")
     def test_dojo_group_member_no_permission(self, mock_foo):
         mock_foo.select_related.return_value = mock_foo
         mock_foo.select_related.return_value = mock_foo
@@ -579,7 +579,7 @@ class TestAuthorization(DojoTestCase):
         self.assertFalse(result)
         mock_foo.filter.assert_called_with(user=self.user4)
 
-    @patch('dojo.models.Dojo_Group_Member.objects')
+    @patch("dojo.models.Dojo_Group_Member.objects")
     def test_dojo_group_member_success(self, mock_foo):
         mock_foo.select_related.return_value = mock_foo
         mock_foo.select_related.return_value = mock_foo
@@ -589,7 +589,7 @@ class TestAuthorization(DojoTestCase):
         self.assertTrue(result)
         mock_foo.filter.assert_called_with(user=self.user4)
 
-    @patch('dojo.models.Product_Member.objects')
+    @patch("dojo.models.Product_Member.objects")
     def test_user_has_permission_language_no_permissions(self, mock_foo):
         mock_foo.select_related.return_value = mock_foo
         mock_foo.select_related.return_value = mock_foo
@@ -600,7 +600,7 @@ class TestAuthorization(DojoTestCase):
         self.assertFalse(result)
         mock_foo.filter.assert_called_with(user=self.user)
 
-    @patch('dojo.models.Product_Member.objects')
+    @patch("dojo.models.Product_Member.objects")
     def test_user_has_permission_language_success(self, mock_foo):
         mock_foo.select_related.return_value = mock_foo
         mock_foo.select_related.return_value = mock_foo
@@ -611,7 +611,7 @@ class TestAuthorization(DojoTestCase):
         self.assertTrue(result)
         mock_foo.filter.assert_called_with(user=self.user)
 
-    @patch('dojo.models.Product_Member.objects')
+    @patch("dojo.models.Product_Member.objects")
     def test_user_has_permission_technology_no_permissions(self, mock_foo):
         mock_foo.select_related.return_value = mock_foo
         mock_foo.select_related.return_value = mock_foo
@@ -622,7 +622,7 @@ class TestAuthorization(DojoTestCase):
         self.assertFalse(result)
         mock_foo.filter.assert_called_with(user=self.user)
 
-    @patch('dojo.models.Product_Member.objects')
+    @patch("dojo.models.Product_Member.objects")
     def test_user_has_permission_technology_success(self, mock_foo):
         mock_foo.select_related.return_value = mock_foo
         mock_foo.select_related.return_value = mock_foo
@@ -633,14 +633,14 @@ class TestAuthorization(DojoTestCase):
         self.assertTrue(result)
         mock_foo.filter.assert_called_with(user=self.user)
 
-    @patch('django.contrib.auth.models.User.has_perm')
+    @patch("django.contrib.auth.models.User.has_perm")
     def test_configuration_permission_true(self, mock):
         mock.return_value = True
-        self.assertTrue(user_has_configuration_permission(self.user, 'test'))
-        mock.assert_called_with('test')
+        self.assertTrue(user_has_configuration_permission(self.user, "test"))
+        mock.assert_called_with("test")
 
-    @patch('django.contrib.auth.models.User.has_perm')
+    @patch("django.contrib.auth.models.User.has_perm")
     def test_configuration_permission_false(self, mock):
         mock.return_value = False
-        self.assertFalse(user_has_configuration_permission(self.user, 'test'))
-        mock.assert_called_with('test')
+        self.assertFalse(user_has_configuration_permission(self.user, "test"))
+        mock.assert_called_with("test")
