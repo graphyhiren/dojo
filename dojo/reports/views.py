@@ -114,8 +114,7 @@ class CustomReport(View):
         if form.is_valid():
             self._set_state(request)
             return render(request, self.get_template(), self.get_context())
-        else:
-            raise PermissionDenied
+        raise PermissionDenied
 
     def _set_state(self, request: HttpRequest):
         self.request = request
@@ -146,10 +145,9 @@ class CustomReport(View):
     def get_template(self):
         if self.report_format == 'AsciiDoc':
             return 'dojo/custom_asciidoc_report.html',
-        elif self.report_format == 'HTML':
+        if self.report_format == 'HTML':
             return 'dojo/custom_html_report.html'
-        else:
-            raise PermissionDenied
+        raise PermissionDenied
 
     def get_context(self):
         return {
@@ -340,7 +338,7 @@ def product_endpoint_report(request, pid):
                            'user': request.user,
                            'title': 'Generate Report',
                            })
-        elif report_format == 'HTML':
+        if report_format == 'HTML':
             return render(request,
                           template,
                           {'product_type': None,
@@ -359,8 +357,7 @@ def product_endpoint_report(request, pid):
                            'user': request.user,
                            'title': 'Generate Report',
                            })
-        else:
-            raise Http404
+        raise Http404
 
     product_tab = Product_Tab(product, "Product Endpoint Report", tab="endpoints")
     return render(request,
@@ -400,9 +397,8 @@ def generate_report(request, obj, host_view=False):
         if obj is None:
             msg = 'No object is given to generate report for'
             raise Exception(msg)
-        else:
-            msg = f'Report cannot be generated for object of type {type(obj).__name__}'
-            raise Exception(msg)
+        msg = f'Report cannot be generated for object of type {type(obj).__name__}'
+        raise Exception(msg)
 
     report_format = request.GET.get('report_type', 'AsciiDoc')
     include_finding_notes = int(request.GET.get('include_finding_notes', 0))
@@ -628,7 +624,7 @@ def generate_report(request, obj, host_view=False):
                            'host_view': host_view,
                            'context': context,
                            })
-        elif report_format == 'HTML':
+        if report_format == 'HTML':
             return render(request,
                           template,
                           {'product_type': product_type,
@@ -654,8 +650,7 @@ def generate_report(request, obj, host_view=False):
                            'context': context,
                            })
 
-        else:
-            raise Http404
+        raise Http404
     paged_findings = get_page_items(request, findings.qs.distinct().order_by('numerical_severity'), 25)
 
     product_tab = None
@@ -724,9 +719,8 @@ def get_findings(request):
     if not url:
         msg = 'Please use the report button when viewing findings'
         raise Http404(msg)
-    else:
-        if url.startswith('url='):
-            url = url[4:]
+    if url.startswith('url='):
+        url = url[4:]
 
     views = ['all', 'open', 'inactive', 'verified',
              'closed', 'accepted', 'out_of_scope',
