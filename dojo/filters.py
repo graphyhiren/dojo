@@ -20,6 +20,7 @@ from django_filters import (
     BooleanFilter,
     CharFilter,
     DateFilter,
+    DateFromToRangeFilter,
     FilterSet,
     ModelChoiceFilter,
     ModelMultipleChoiceFilter,
@@ -1538,7 +1539,7 @@ class PercentageRangeFilter(RangeFilter):
 
 class FindingFilterHelper(FilterSet):
     title = CharFilter(lookup_expr="icontains")
-    date = DateRangeFilter()
+    date = DateFromToRangeFilter(field_name='date', label="Date Discovered")
     on = DateFilter(field_name="date", lookup_expr="exact", label="On")
     before = DateFilter(field_name="date", lookup_expr="lt", label="Before")
     after = DateFilter(field_name="date", lookup_expr="gt", label="After")
@@ -2875,12 +2876,14 @@ class EndpointReportFilter(DojoFilter):
 
 class ReportFindingFilter(FindingTagFilter):
     title = CharFilter(lookup_expr='icontains', label='Name')
+    date = DateFromToRangeFilter(field_name='date', label="Date Discovered")
     test__engagement__product = ModelMultipleChoiceFilter(
         queryset=Product.objects.none(), label="Product")
     test__engagement__product__prod_type = ModelMultipleChoiceFilter(
         queryset=Product_Type.objects.none(),
         label="Product Type")
     test__engagement__product__lifecycle = MultipleChoiceFilter(choices=Product.LIFECYCLE_CHOICES, label="Product Lifecycle")
+    test__engagement = ModelMultipleChoiceFilter(queryset=Engagement.objects.none(), label="Engagement")
     severity = MultipleChoiceFilter(choices=SEVERITY_CHOICES)
     active = ReportBooleanFilter()
     is_mitigated = ReportBooleanFilter()
@@ -2901,8 +2904,8 @@ class ReportFindingFilter(FindingTagFilter):
         model = Finding
         # exclude sonarqube issue as by default it will show all without checking permissions
         exclude = ['date', 'cwe', 'url', 'description', 'mitigation', 'impact',
-                   'references', 'test', 'sonarqube_issue',
-                   'thread_id', 'notes', 'endpoints',
+                   'references', 'sonarqube_issue',
+                   'thread_id', 'notes',
                    'numerical_severity', 'reporter', 'last_reviewed',
                    'jira_creation', 'jira_change', 'files']
 
@@ -2952,6 +2955,8 @@ class ReportFindingFilter(FindingTagFilter):
         if 'test__engagement__product' in self.form.fields:
             self.form.fields[
                 'test__engagement__product'].queryset = get_authorized_products(Permissions.Product_View)
+        if 'test__engagement' in self.form.fields:
+            self.form.fields['test__engagement'].queryset = get_authorized_engagements(Permissions.Engagement_View)
 
     @property
     def qs(self):
@@ -2974,6 +2979,7 @@ class UserFilter(DojoFilter):
             ('email', 'email'),
             ('is_active', 'is_active'),
             ('is_superuser', 'is_superuser'),
+            ('date_joined', 'date_joined'),
             ('last_login', 'last_login'),
         ),
         field_labels={

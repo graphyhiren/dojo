@@ -1,5 +1,6 @@
 import json
 import logging
+import os
 import re
 from datetime import datetime
 from typing import List
@@ -424,6 +425,7 @@ class ProductMetaSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
+    date_joined = serializers.DateTimeField(read_only=True)
     last_login = serializers.DateTimeField(read_only=True)
     password = serializers.CharField(
         write_only=True,
@@ -449,6 +451,7 @@ class UserSerializer(serializers.ModelSerializer):
             "first_name",
             "last_name",
             "email",
+            "date_joined",
             "last_login",
             "is_active",
             "is_superuser",
@@ -796,6 +799,24 @@ class FileSerializer(serializers.ModelSerializer):
     class Meta:
         model = FileUpload
         fields = "__all__"
+
+    def validate(self, data):
+        if file := data.get("file"):
+            ext = os.path.splitext(file.name)[1]  # [0] returns path+filename
+            valid_extensions = settings.FILE_UPLOAD_TYPES
+            if ext.lower() not in valid_extensions:
+                if accepted_extensions := f"{', '.join(valid_extensions)}":
+                    msg = (
+                        "Unsupported extension. Supported extensions are as "
+                        f"follows: {accepted_extensions}"
+                    )
+                else:
+                    msg = (
+                        "File uploads are prohibited due to the list of acceptable "
+                        "file extensions being empty"
+                    )
+                raise ValidationError(msg)
+            return data
 
 
 class RawFileSerializer(serializers.ModelSerializer):
@@ -2938,10 +2959,10 @@ class SLAConfigurationSerializer(serializers.ModelSerializer):
     def validate(self, data):
         async_updating = getattr(self.instance, 'async_updating', None)
         if async_updating:
-            for field in ['critical', 'high', 'medium', 'low']:
+            for field in ['critical', 'enforce_critical', 'high', 'enforce_high', 'medium', 'enforce_medium', 'low', 'enforce_low']:
                 old_days = getattr(self.instance, field, None)
                 new_days = data.get(field, None)
-                if old_days and new_days and (old_days != new_days):
+                if old_days is not None and new_days is not None and (old_days != new_days):
                     msg = 'Finding SLA expiration dates are currently being calculated. The SLA days for this SLA configuration cannot be changed until the calculation is complete.'
                     raise serializers.ValidationError(msg)
         return data
