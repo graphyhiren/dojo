@@ -53,7 +53,7 @@ def components(request):
         "-total"
     )  # Default sort by total descending
 
-    filter_string_matching = get_system_setting("filter_string_matching", False)
+    filter_string_matching = get_system_setting("filter_string_matching", default=False)
     filter_class = ComponentFilterWithoutObjectLookups if filter_string_matching else ComponentFilter
     comp_filter = filter_class(request.GET, queryset=component_query)
     result = get_page_items(request, comp_filter.qs, 25)

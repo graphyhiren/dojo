@@ -142,7 +142,7 @@ class ViewTest(View):
 
     def get_findings(self, request: HttpRequest, test: Test):
         findings = Finding.objects.filter(test=test).order_by("numerical_severity")
-        filter_string_matching = get_system_setting("filter_string_matching", False)
+        filter_string_matching = get_system_setting("filter_string_matching", default=False)
         finding_filter_class = FindingFilterWithoutObjectLookups if filter_string_matching else FindingFilter
         findings = finding_filter_class(request.GET, queryset=findings)
         paged_findings = get_page_items_and_count(request, prefetch_for_findings(findings.qs), 25, prefix='findings')

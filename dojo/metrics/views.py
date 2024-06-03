@@ -155,7 +155,7 @@ def finding_querys(prod_type, request):
         'test__engagement__risk_acceptance',
         'test__test_type',
     )
-    filter_string_matching = get_system_setting("filter_string_matching", False)
+    filter_string_matching = get_system_setting("filter_string_matching", default=False)
     finding_filter_class = MetricsFindingFilterWithoutObjectLookups if filter_string_matching else MetricsFindingFilter
     findings = finding_filter_class(request.GET, queryset=findings_query)
     form = findings.form
@@ -236,7 +236,7 @@ def endpoint_querys(prod_type, request):
         'finding__reporter')
 
     endpoints_query = get_authorized_endpoint_status(Permissions.Endpoint_View, endpoints_query, request.user)
-    filter_string_matching = get_system_setting("filter_string_matching", False)
+    filter_string_matching = get_system_setting("filter_string_matching", default=False)
     filter_class = MetricsEndpointFilterWithoutObjectLookups if filter_string_matching else MetricsEndpointFilter
     endpoints = filter_class(request.GET, queryset=endpoints_query)
     form = endpoints.form

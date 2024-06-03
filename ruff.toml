@@ -41,6 +41,7 @@ select = [
    "ASYNC",
    "EXE",
    "TRIO",
+   "FBT001", "FBT003",
    "C4",
    "DJ003", "DJ012", "DJ013",
    "EM",

@@ -26,7 +26,7 @@ def view_finding_group(request, fgid):
     finding_group = get_object_or_404(Finding_Group, pk=fgid)
     findings = finding_group.findings.all()
     edit_finding_group_form = EditFindingGroupForm(instance=finding_group)
-    filter_string_matching = get_system_setting("filter_string_matching", False)
+    filter_string_matching = get_system_setting("filter_string_matching", default=False)
     finding_filter_class = FindingFilterWithoutObjectLookups if filter_string_matching else FindingFilter
 
     show_product_column = True

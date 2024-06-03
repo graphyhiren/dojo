@@ -118,7 +118,7 @@ def simple_search(request):
 
             elif search_findings:
                 logger.debug('searching findings')
-                filter_string_matching = get_system_setting("filter_string_matching", False)
+                filter_string_matching = get_system_setting("filter_string_matching", default=False)
                 finding_filter_class = FindingFilterWithoutObjectLookups if filter_string_matching else FindingFilter
                 findings_filter = finding_filter_class(request.GET, queryset=findings, user=request.user, pid=None, prefix='finding')
                 # setting initial values for filters is not supported and discouraged: https://django-filter.readthedocs.io/en/stable/guide/tips.html#using-initial-values-as-defaults

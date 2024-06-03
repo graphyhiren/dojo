@@ -136,7 +136,7 @@ def product(request):
     prods = prods.annotate(
         findings_count=Count('engagement__test__finding', filter=Q(engagement__test__finding__active=True))
     )
-    filter_string_matching = get_system_setting("filter_string_matching", False)
+    filter_string_matching = get_system_setting("filter_string_matching", default=False)
     filter_class = ProductFilterWithoutObjectLookups if filter_string_matching else ProductFilter
     prod_filter = filter_class(request.GET, queryset=prods, user=request.user)
     prod_list = get_page_items(request, prod_filter.qs, 25)
@@ -374,7 +374,7 @@ def finding_querys(request, prod):
         # 'test__test_type',
         # 'risk_acceptance_set',
         'reporter')
-    filter_string_matching = get_system_setting("filter_string_matching", False)
+    filter_string_matching = get_system_setting("filter_string_matching", default=False)
     finding_filter_class = MetricsFindingFilterWithoutObjectLookups if filter_string_matching else MetricsFindingFilter
     findings = finding_filter_class(request.GET, queryset=findings_query, pid=prod)
     findings_qs = queryset_check(findings)
@@ -440,7 +440,7 @@ def endpoint_querys(request, prod):
         'finding__test__engagement__risk_acceptance',
         'finding__risk_acceptance_set',
         'finding__reporter').annotate(severity=F('finding__severity'))
-    filter_string_matching = get_system_setting("filter_string_matching", False)
+    filter_string_matching = get_system_setting("filter_string_matching", default=False)
     filter_class = MetricsEndpointFilterWithoutObjectLookups if filter_string_matching else MetricsEndpointFilter
     endpoints = filter_class(request.GET, queryset=endpoints_query)
     endpoints_qs = queryset_check(endpoints)
@@ -526,7 +526,7 @@ def view_product_metrics(request, pid):
     engs = Engagement.objects.filter(product=prod, active=True)
     view = identify_view(request)
 
-    filter_string_matching = get_system_setting("filter_string_matching", False)
+    filter_string_matching = get_system_setting("filter_string_matching", default=False)
     filter_class = EngagementFilterWithoutObjectLookups if filter_string_matching else EngagementFilter
     result = filter_class(
         request.GET,
@@ -752,7 +752,7 @@ def view_engagements(request, pid):
     prod = get_object_or_404(Product, id=pid)
     default_page_num = 10
     recent_test_day_count = 7
-    filter_string_matching = get_system_setting("filter_string_matching", False)
+    filter_string_matching = get_system_setting("filter_string_matching", default=False)
     filter_class = ProductEngagementFilterWithoutObjectLookups if filter_string_matching else ProductEngagementFilter
     # In Progress Engagements
     engs = Engagement.objects.filter(product=prod, active=True, status="In Progress").order_by('-updated')

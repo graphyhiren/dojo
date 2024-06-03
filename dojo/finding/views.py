@@ -345,7 +345,7 @@ class BaseListFindings:
             "pid": self.get_product_id(),
         }
 
-        filter_string_matching = get_system_setting("filter_string_matching", False)
+        filter_string_matching = get_system_setting("filter_string_matching", default=False)
         finding_filter_class = FindingFilterWithoutObjectLookups if filter_string_matching else FindingFilter
         accepted_finding_filter_class = AcceptedFindingFilterWithoutObjectLookups if filter_string_matching else AcceptedFindingFilter
         return (
@@ -599,7 +599,7 @@ class ViewFinding(View):
         }
 
     def get_similar_findings(self, request: HttpRequest, finding: Finding):
-        similar_findings_enabled = get_system_setting("enable_similar_findings", True)
+        similar_findings_enabled = get_system_setting("enable_similar_findings", default=True)
         if similar_findings_enabled is False:
             return {
                 "similar_findings_enabled": similar_findings_enabled,
@@ -617,7 +617,7 @@ class ViewFinding(View):
                     request, finding, finding.duplicate_finding
                 )
             )
-        filter_string_matching = get_system_setting("filter_string_matching", False)
+        filter_string_matching = get_system_setting("filter_string_matching", default=False)
         finding_filter_class = SimilarFindingFilterWithoutObjectLookups if filter_string_matching else SimilarFindingFilter
         similar_findings_filter = finding_filter_class(
             request.GET,
@@ -937,7 +937,7 @@ class EditFinding(View):
                 status.save()
 
     def process_false_positive_history(self, finding: Finding):
-        if get_system_setting("false_positive_history", False):
+        if get_system_setting("false_positive_history", default=False):
             # If the finding is being marked as a false positive we dont need to call the
             # fp history function because it will be called by the save function
             # If finding was a false positive and is being reactivated: retroactively reactivates all equal findings
@@ -2406,7 +2406,7 @@ def edit_template(request, tid):
                 extra_tags="alert-danger",
             )
 
-    count = apply_cwe_mitigation(True, template, False)
+    count = apply_cwe_mitigation(apply_to_findings=True, template=template, update=False)
     add_breadcrumb(title="Edit Template", top_level=False, request=request)
     return render(
         request,

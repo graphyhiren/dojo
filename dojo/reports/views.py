@@ -82,7 +82,7 @@ class ReportBuilder(View):
                                             finding__duplicate=False,
                                             finding__out_of_scope=False,
                                             ).distinct()
-        filter_string_matching = get_system_setting("filter_string_matching", False)
+        filter_string_matching = get_system_setting("filter_string_matching", default=False)
         filter_class = EndpointFilterWithoutObjectLookups if filter_string_matching else EndpointFilter
         return filter_class(request.GET, queryset=endpoints, user=request.user)
 
@@ -244,13 +244,13 @@ def test_report(request, tid):
 @user_is_authorized(Endpoint, Permissions.Endpoint_View, 'eid')
 def endpoint_report(request, eid):
     endpoint = get_object_or_404(Endpoint, id=eid)
-    return generate_report(request, endpoint, False)
+    return generate_report(request, endpoint, host_view=False)
 
 
 @user_is_authorized(Endpoint, Permissions.Endpoint_View, 'eid')
 def endpoint_host_report(request, eid):
     endpoint = get_object_or_404(Endpoint, id=eid)
-    return generate_report(request, endpoint, True)
+    return generate_report(request, endpoint, host_view=True)
 
 
 @user_is_authorized(Product, Permissions.Product_View, 'pid')
