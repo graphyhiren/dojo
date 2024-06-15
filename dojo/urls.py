@@ -40,7 +40,7 @@ from dojo.api_v2.views import (
     NotesViewSet,
     NoteTypeViewSet,
     NotificationsViewSet,
-    NotificationWebhooksViewset,
+    NotificationWebhooksViewSet,
     ProductAPIScanConfigurationViewSet,
     ProductGroupViewSet,
     ProductMemberViewSet,
@@ -176,7 +176,7 @@ v2_api.register(r'questionnaire_engagement_questionnaires', QuestionnaireEngagem
 v2_api.register(r'questionnaire_general_questionnaires', QuestionnaireGeneralSurveyViewSet)
 v2_api.register(r'questionnaire_questions', QuestionnaireQuestionViewSet)
 v2_api.register(r'announcements', AnnouncementViewSet)
-v2_api.register(r'notification_webhooks', NotificationWebhooksViewset)
+v2_api.register(r'notification_webhooks', NotificationWebhooksViewSet)
 ur = []
 ur += dev_env_urls
 ur += endpoint_urls

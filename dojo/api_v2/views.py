@@ -3310,7 +3310,7 @@ class AnnouncementViewSet(
     permission_classes = (permissions.UserHasConfigurationPermissionStaff,)
 
 
-class NotificationWebhooksViewset(
+class NotificationWebhooksViewSet(
     prefetch.PrefetchListMixin,
     prefetch.PrefetchRetrieveMixin,
     DojoModelViewSet
