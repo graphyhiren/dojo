@@ -35,7 +35,7 @@ class TestSonarQubeParser(DojoTestCase):
             get_unit_tests_path() + "/scans/sonarqube/sonar-no-finding.html"
         )
         parser = SonarQubeParser()
-        parser.set_mode('detailed')
+        parser.set_mode("detailed")
         findings = parser.get_findings(my_file_handle, test)
         self.assertEqual(0, len(findings))
         my_file_handle.close()
@@ -97,7 +97,7 @@ class TestSonarQubeParser(DojoTestCase):
             get_unit_tests_path() + "/scans/sonarqube/sonar-single-finding.html"
         )
         parser = SonarQubeParser()
-        parser.set_mode('detailed')
+        parser.set_mode("detailed")
         findings = parser.get_findings(my_file_handle, test)
         # common verifications
         self.assertEqual(1, len(findings))
@@ -145,7 +145,7 @@ class TestSonarQubeParser(DojoTestCase):
             get_unit_tests_path() + "/scans/sonarqube/sonar-6-findings.html"
         )
         parser = SonarQubeParser()
-        parser.set_mode('detailed')
+        parser.set_mode("detailed")
         findings = parser.get_findings(my_file_handle, test)
         # common verifications
         self.assertEqual(6, len(findings))
@@ -158,7 +158,7 @@ class TestSonarQubeParser(DojoTestCase):
             get_unit_tests_path() + "/scans/sonarqube/sonar-6-findings.html"
         )
         parser = SonarQubeParser()
-        parser.set_mode('detailed')
+        parser.set_mode("detailed")
         findings = parser.get_findings(my_file_handle, test)
         # common verifications
         # (there is no aggregation to be done here)
@@ -171,7 +171,7 @@ class TestSonarQubeParser(DojoTestCase):
             get_unit_tests_path() + "/scans/sonarqube/sonar-table-in-table.html"
         )
         parser = SonarQubeParser()
-        parser.set_mode('detailed')
+        parser.set_mode("detailed")
         findings = parser.get_findings(my_file_handle, test)
         self.assertEqual(1, len(findings))
 
@@ -251,7 +251,7 @@ class TestSonarQubeParser(DojoTestCase):
             get_unit_tests_path() + "/scans/sonarqube/sonar-rule-undefined.html"
         )
         parser = SonarQubeParser()
-        parser.set_mode('detailed')
+        parser.set_mode("detailed")
         findings = parser.get_findings(my_file_handle, test)
         self.assertEqual(1, len(findings))
 
@@ -360,7 +360,7 @@ class TestSonarQubeParser(DojoTestCase):
             get_unit_tests_path() + "/scans/sonarqube/sonar-4-findings-3-to-aggregate.html"
         )
         parser = SonarQubeParser()
-        parser.set_mode('detailed')
+        parser.set_mode("detailed")
         findings = parser.get_findings(my_file_handle, test)
         # specific verifications
         self.assertEqual(4, len(findings))
@@ -372,7 +372,7 @@ class TestSonarQubeParser(DojoTestCase):
         """
         my_file_handle, _product, _engagement, test = self.init(get_unit_tests_path() + "/scans/sonarqube/sonar.html")
         parser = SonarQubeParser()
-        parser.set_mode('detailed')
+        parser.set_mode("detailed")
         findings = parser.get_findings(my_file_handle, test)
         # specific verifications
         self.assertEqual(322, len(findings))
@@ -388,7 +388,7 @@ class TestSonarQubeParser(DojoTestCase):
             get_unit_tests_path() + "/scans/sonarqube/sonar-table-in-table-with-whitespace.html"
         )
         parser = SonarQubeParser()
-        parser.set_mode('detailed')
+        parser.set_mode("detailed")
         findings = parser.get_findings(my_file_handle, test)
         self.assertEqual(1, len(findings))
 
@@ -467,7 +467,7 @@ class TestSonarQubeParser(DojoTestCase):
             get_unit_tests_path() + "/scans/sonarqube/sonar-no-finding.json"
         )
         parser = SonarQubeParser()
-        parser.set_mode('detailed')
+        parser.set_mode("detailed")
         findings = parser.get_findings(my_file_handle, test)
         self.assertEqual(0, len(findings))
         my_file_handle.close()
@@ -477,7 +477,7 @@ class TestSonarQubeParser(DojoTestCase):
             get_unit_tests_path() + "/scans/sonarqube/sonar-single-finding.json"
         )
         parser = SonarQubeParser()
-        parser.set_mode('detailed')
+        parser.set_mode("detailed")
         findings = parser.get_findings(my_file_handle, test)
         # common verifications
         self.assertEqual(1, len(findings))
@@ -556,7 +556,7 @@ class TestSonarQubeParser(DojoTestCase):
             get_unit_tests_path() + "/scans/sonarqube/sonar-6-findings.json"
         )
         parser = SonarQubeParser()
-        parser.set_mode('detailed')
+        parser.set_mode("detailed")
         findings = parser.get_findings(my_file_handle, test)
         # common verifications
         # (there is no aggregation to be done here)
