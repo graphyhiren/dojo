@@ -106,7 +106,7 @@ class TestMozillaObservatoryParser(DojoTestCase):
                 elif "subresource-integrity" == finding.vuln_id_from_tool:
                     with self.subTest(vuln_id_from_tool=finding.vuln_id_from_tool):
                         self.assertTrue(finding.active)
-                        self.assertEqual("Subresource Integrity (SRI) not implemented, and external scripts are loaded over HTTP or use protocol-relative URLs via src=\"//...\"", finding.title)
+                        self.assertEqual('Subresource Integrity (SRI) not implemented, and external scripts are loaded over HTTP or use protocol-relative URLs via src="//..."', finding.title)
                         self.assertEqual("High", finding.severity)
                         self.assertIn("Subresource Integrity (SRI) not implemented", finding.description)
                 elif "redirection" == finding.vuln_id_from_tool:
@@ -159,7 +159,7 @@ class TestMozillaObservatoryParser(DojoTestCase):
                 elif "subresource-integrity" == finding.vuln_id_from_tool:
                     with self.subTest(vuln_id_from_tool=finding.vuln_id_from_tool):
                         self.assertTrue(finding.active)
-                        self.assertEqual("Subresource Integrity (SRI) not implemented, and external scripts are loaded over HTTP or use protocol-relative URLs via src=\"//...\"", finding.title)
+                        self.assertEqual('Subresource Integrity (SRI) not implemented, and external scripts are loaded over HTTP or use protocol-relative URLs via src="//..."', finding.title)
                         self.assertEqual("High", finding.severity)
                         self.assertIn("Subresource Integrity (SRI) not implemented", finding.description)
                 elif "redirection" == finding.vuln_id_from_tool:
