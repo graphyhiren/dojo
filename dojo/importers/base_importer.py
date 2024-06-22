@@ -157,7 +157,11 @@ class BaseImporter(ImporterOptions):
             msg = "A test must be supplied to parse the file"
             raise ValidationError(msg)
         try:
-            return parser.get_findings(scan, self.test)
+            # check if parser.get_findings method supports kwargs arguments
+            if 'kwargs' in parser.get_findings.__code__.co_varnames:
+                return parser.get_findings(scan, self.test, **kwargs)
+            else:
+                return parser.get_findings(scan, self.test)
         except ValueError as e:
             logger.warning(e)
             raise ValidationError(e)
@@ -171,7 +175,11 @@ class BaseImporter(ImporterOptions):
         Use the API configuration object to get the tests to be used by the parser
         """
         try:
-            return parser.get_tests(self.scan_type, scan)
+            # check if parser.get_tests method supports kwargs arguments
+            if 'kwargs' in parser.get_tests.__code__.co_varnames:
+                return parser.get_tests(self.scan_type, scan, **kwargs)
+            else:
+                return parser.get_tests(self.scan_type, scan)
         except ValueError as e:
             logger.warning(e)
             raise ValidationError(e)

@@ -775,6 +775,14 @@ def add_jira_issue(obj, *args, **kwargs):
     duedate = None
     if System_Settings.objects.get().enable_finding_sla:
         duedate = obj.sla_deadline()
+
+    # merge custom fields from project / engagement and finding
+    issue_custom_fields = jira_project.custom_fields if isinstance(jira_project.custom_fields, dict) else {}
+    if isinstance(obj, Finding) and isinstance(issue_custom_fields, dict):
+        finding_custom_fields = obj.custom_fields if isinstance(obj.custom_fields, dict) else {}
+        issue_custom_fields |= finding_custom_fields
+        logger.debug('updated finding with merged custom fields: %s', issue_custom_fields)
+
     # Set the fields that will compose the jira issue
     try:
         issuetype_fields = get_issuetype_fields(jira, jira_project.project_key, jira_instance.default_issue_type)
@@ -784,7 +792,7 @@ def add_jira_issue(obj, *args, **kwargs):
             summary=jira_summary(obj),
             description=jira_description(obj),
             component_name=jira_project.component,
-            custom_fields=jira_project.custom_fields,
+            custom_fields=issue_custom_fields,
             labels=labels,
             environment=jira_environment(obj),
             priority_name=jira_priority(obj),
@@ -929,6 +937,7 @@ def update_jira_issue(obj, *args, **kwargs):
             issuetype_name=jira_instance.default_issue_type,
             summary=jira_summary(obj),
             description=jira_description(obj),
+            custom_fields=obj.custom_fields if isinstance(obj, Finding) and obj.custom_fields else None,
             component_name=jira_project.component if not issue.fields.components else None,
             labels=labels + issue.fields.labels,
             environment=jira_environment(obj),

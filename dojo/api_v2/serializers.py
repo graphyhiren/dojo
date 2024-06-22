@@ -2138,6 +2138,12 @@ class ImportScanSerializer(serializers.Serializer):
         required=False,
         default=True,
     )
+    custom_fields_mapping = serializers.JSONField(
+        required=False,
+        help_text='A JSON map of JIRA custom field id (key) to report column name (value): Example '
+                  '{"customfield_12345":"estimatedMonthlyCost"}',
+    )
+
     # extra fields populated in response
     # need to use the _id suffix as without the serializer framework gets
     # confused
@@ -2186,6 +2192,11 @@ class ImportScanSerializer(serializers.Serializer):
             context["endpoints_to_add"] = [endpoints_to_add]
         else:
             context["endpoint_to_add"] = None
+        # Set custom field mapping
+        if "custom_fields_mapping" in self.initial_data:
+            context["custom_fields_mapping"] = data.get("custom_fields_mapping")
+        else:
+            context["custom_fields_mapping"] = None
         # Convert the tags to a list if needed. At this point, the
         # TaggitListSerializer has already removed commas supplied
         # by the user, so this operation will consistently return
@@ -2412,6 +2423,11 @@ class ReImportScanSerializer(TaggitSerializer, serializers.Serializer):
         help_text="If set to false, finding groups will only be created when there is more than one grouped finding",
         required=False,
         default=True,
+    )
+    custom_fields_mapping = serializers.JSONField(
+        required=False,
+        help_text='A JSON map of JIRA custom field id (key) to report column name (value): Example '
+                  '{"customfield_12345":"estimatedMonthlyCost"}',
     )
 
     # extra fields populated in response
