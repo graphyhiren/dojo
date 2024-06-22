@@ -40,10 +40,15 @@ class AsffParser:
                 active = True
             else:
                 active = False
+            if item.get("Resources"):
+                description = "This is a Security Hub Finding \n" + item.get("Description", "") + "\n"
+                description += "\n" + item.get("Resources", {}).get("Id", "")
+            else:
+                description = item.get("Description")
 
             finding = Finding(
                 title=item.get("Title"),
-                description=item.get("Description"),
+                description=description,
                 date=dateutil.parser.parse(item.get("CreatedAt")),
                 mitigation=mitigation,
                 references=references,
