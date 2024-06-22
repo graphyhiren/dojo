@@ -8,7 +8,7 @@ class TestDockerBenchParser(DojoTestCase):
 
     def test_parse_file_with_no_vuln_has_no_findings(self):
         with open(
-            get_unit_tests_path() + "/scans/dockerbench/docker-bench-report-zero-vulns.json"
+            get_unit_tests_path() + "/scans/dockerbench/docker-bench-report-zero-vulns.json",
         ) as testfile:
             parser = DockerBenchParser()
             findings = parser.get_findings(testfile, Test())
@@ -16,7 +16,7 @@ class TestDockerBenchParser(DojoTestCase):
 
     def test_parse_file_with_one_vuln_has_one_finding(self):
         with open(
-            get_unit_tests_path() + "/scans/dockerbench/docker-bench-report-single-vuln.json"
+            get_unit_tests_path() + "/scans/dockerbench/docker-bench-report-single-vuln.json",
         ) as testfile:
             parser = DockerBenchParser()
             findings = parser.get_findings(testfile, Test())
@@ -30,7 +30,7 @@ class TestDockerBenchParser(DojoTestCase):
 
     def test_parse_file_with_multiple_vuln_has_multiple_findings(self):
         with open(
-            get_unit_tests_path() + "/scans/dockerbench/docker-bench-report-many-vulns.json"
+            get_unit_tests_path() + "/scans/dockerbench/docker-bench-report-many-vulns.json",
         ) as testfile:
             parser = DockerBenchParser()
             findings = parser.get_findings(testfile, Test())

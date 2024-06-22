@@ -8,7 +8,7 @@ class TestOssIndexDevauditParser(DojoTestCase):
 
     def test_ossindex_devaudit_parser_with_no_vulns_has_no_findings(self):
         testfile = open(
-            get_unit_tests_path() + "/scans/ossindex_devaudit/ossindex_devaudit_no_vuln.json"
+            get_unit_tests_path() + "/scans/ossindex_devaudit/ossindex_devaudit_no_vuln.json",
         )
         parser = OssIndexDevauditParser()
         findings = parser.get_findings(testfile, Test())
@@ -17,7 +17,7 @@ class TestOssIndexDevauditParser(DojoTestCase):
 
     def test_ossindex_devaudit_parser_with_one_critical_vuln_has_one_finding(self):
         testfile = open(
-            get_unit_tests_path() + "/scans/ossindex_devaudit/ossindex_devaudit_one_vuln.json"
+            get_unit_tests_path() + "/scans/ossindex_devaudit/ossindex_devaudit_one_vuln.json",
         )
         parser = OssIndexDevauditParser()
         findings = parser.get_findings(testfile, Test())
@@ -26,7 +26,7 @@ class TestOssIndexDevauditParser(DojoTestCase):
 
     def test_ossindex_devaudit_parser_with_multiple_vulns_has_multiple_finding(self):
         testfile = open(
-            get_unit_tests_path() + "/scans/ossindex_devaudit/ossindex_devaudit_multiple_vulns.json"
+            get_unit_tests_path() + "/scans/ossindex_devaudit/ossindex_devaudit_multiple_vulns.json",
         )
         parser = OssIndexDevauditParser()
         findings = parser.get_findings(testfile, Test())
@@ -35,7 +35,7 @@ class TestOssIndexDevauditParser(DojoTestCase):
 
     def test_ossindex_devaudit_parser_with_no_cve_returns_info_severity(self):
         testfile = open(
-            get_unit_tests_path() + "/scans/ossindex_devaudit/ossindex_devaudit_vuln_no_cvssscore.json"
+            get_unit_tests_path() + "/scans/ossindex_devaudit/ossindex_devaudit_vuln_no_cvssscore.json",
         )
         parser = OssIndexDevauditParser()
         findings = parser.get_findings(testfile, Test())
@@ -44,7 +44,7 @@ class TestOssIndexDevauditParser(DojoTestCase):
 
     def test_ossindex_devaudit_parser_with_reference_shows_reference(self):
         testfile = open(
-            get_unit_tests_path() + "/scans/ossindex_devaudit/ossindex_devaudit_one_vuln.json"
+            get_unit_tests_path() + "/scans/ossindex_devaudit/ossindex_devaudit_one_vuln.json",
         )
         parser = OssIndexDevauditParser()
         findings = parser.get_findings(testfile, Test())
@@ -56,7 +56,7 @@ class TestOssIndexDevauditParser(DojoTestCase):
 
     def test_ossindex_devaudit_parser_with_empty_reference_shows_empty_reference(self):
         testfile = open(
-            get_unit_tests_path() + "/scans/ossindex_devaudit/ossindex_devaudit_empty_reference.json"
+            get_unit_tests_path() + "/scans/ossindex_devaudit/ossindex_devaudit_empty_reference.json",
         )
         parser = OssIndexDevauditParser()
         findings = parser.get_findings(testfile, Test())
@@ -67,7 +67,7 @@ class TestOssIndexDevauditParser(DojoTestCase):
 
     def test_ossindex_devaudit_parser_with_missing_reference_shows_empty(self):
         testfile = open(
-            get_unit_tests_path() + "/scans/ossindex_devaudit/ossindex_devaudit_missing_reference.json"
+            get_unit_tests_path() + "/scans/ossindex_devaudit/ossindex_devaudit_missing_reference.json",
         )
         parser = OssIndexDevauditParser()
         findings = parser.get_findings(testfile, Test())
@@ -78,7 +78,7 @@ class TestOssIndexDevauditParser(DojoTestCase):
 
     def test_ossindex_devaudit_parser_with_missing_cwe_shows_1035(self):
         testfile = open(
-            get_unit_tests_path() + "/scans/ossindex_devaudit/ossindex_devaudit_missing_cwe.json"
+            get_unit_tests_path() + "/scans/ossindex_devaudit/ossindex_devaudit_missing_cwe.json",
         )
         parser = OssIndexDevauditParser()
         findings = parser.get_findings(testfile, Test())
@@ -89,7 +89,7 @@ class TestOssIndexDevauditParser(DojoTestCase):
 
     def test_ossindex_devaudit_parser_with_null_cwe_shows_1035(self):
         testfile = open(
-            get_unit_tests_path() + "/scans/ossindex_devaudit/ossindex_devaudit_null_cwe.json"
+            get_unit_tests_path() + "/scans/ossindex_devaudit/ossindex_devaudit_null_cwe.json",
         )
         parser = OssIndexDevauditParser()
         findings = parser.get_findings(testfile, Test())
@@ -100,7 +100,7 @@ class TestOssIndexDevauditParser(DojoTestCase):
 
     def test_ossindex_devaudit_parser_with_empty_cwe_shows_1035(self):
         testfile = open(
-            get_unit_tests_path() + "/scans/ossindex_devaudit/ossindex_devaudit_empty_cwe.json"
+            get_unit_tests_path() + "/scans/ossindex_devaudit/ossindex_devaudit_empty_cwe.json",
         )
         parser = OssIndexDevauditParser()
         findings = parser.get_findings(testfile, Test())
@@ -111,7 +111,7 @@ class TestOssIndexDevauditParser(DojoTestCase):
 
     def test_ossindex_devaudit_parser_get_severity_shows_info(self):
         testfile = open(
-            get_unit_tests_path() + "/scans/ossindex_devaudit/ossindex_devaudit_severity_info.json"
+            get_unit_tests_path() + "/scans/ossindex_devaudit/ossindex_devaudit_severity_info.json",
         )
         parser = OssIndexDevauditParser()
         findings = parser.get_findings(testfile, Test())
@@ -122,7 +122,7 @@ class TestOssIndexDevauditParser(DojoTestCase):
 
     def test_ossindex_devaudit_parser_get_severity_shows_critical(self):
         testfile = open(
-            get_unit_tests_path() + "/scans/ossindex_devaudit/ossindex_devaudit_severity_critical.json"
+            get_unit_tests_path() + "/scans/ossindex_devaudit/ossindex_devaudit_severity_critical.json",
         )
         parser = OssIndexDevauditParser()
         findings = parser.get_findings(testfile, Test())
@@ -133,7 +133,7 @@ class TestOssIndexDevauditParser(DojoTestCase):
 
     def test_ossindex_devaudit_parser_get_severity_shows_high(self):
         testfile = open(
-            get_unit_tests_path() + "/scans/ossindex_devaudit/ossindex_devaudit_severity_high.json"
+            get_unit_tests_path() + "/scans/ossindex_devaudit/ossindex_devaudit_severity_high.json",
         )
         parser = OssIndexDevauditParser()
         findings = parser.get_findings(testfile, Test())
@@ -144,7 +144,7 @@ class TestOssIndexDevauditParser(DojoTestCase):
 
     def test_ossindex_devaudit_parser_get_severity_shows_medium(self):
         testfile = open(
-            get_unit_tests_path() + "/scans/ossindex_devaudit/ossindex_devaudit_severity_medium.json"
+            get_unit_tests_path() + "/scans/ossindex_devaudit/ossindex_devaudit_severity_medium.json",
         )
         parser = OssIndexDevauditParser()
         findings = parser.get_findings(testfile, Test())
@@ -155,7 +155,7 @@ class TestOssIndexDevauditParser(DojoTestCase):
 
     def test_ossindex_devaudit_parser_get_severity_shows_low(self):
         testfile = open(
-            get_unit_tests_path() + "/scans/ossindex_devaudit/ossindex_devaudit_severity_low.json"
+            get_unit_tests_path() + "/scans/ossindex_devaudit/ossindex_devaudit_severity_low.json",
         )
         parser = OssIndexDevauditParser()
         findings = parser.get_findings(testfile, Test())

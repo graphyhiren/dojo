@@ -383,7 +383,7 @@ class ExpressJiraView(View):
                 description=f"JIRA \"{jform.cleaned_data.get('configuration_name')}\" was added by {request.user}",
                 url=request.build_absolute_uri(reverse('jira')))
 
-            return HttpResponseRedirect(reverse('jira', ))
+            return HttpResponseRedirect(reverse('jira'))
         return render(request, self.get_template(), {'jform': jform})
 
 
@@ -428,7 +428,7 @@ class NewJiraView(View):
                 description=f"JIRA \"{jform.cleaned_data.get('configuration_name')}\" was added by {request.user}",
                 url=request.build_absolute_uri(reverse('jira')))
 
-            return HttpResponseRedirect(reverse('jira', ))
+            return HttpResponseRedirect(reverse('jira'))
         else:
             logger.error('jform.errors: %s', jform.errors)
         return render(request, self.get_template(), {'jform': jform})
@@ -483,7 +483,7 @@ class EditJiraView(View):
                 description=f"JIRA \"{jform.cleaned_data.get('configuration_name')}\" was edited by {request.user}",
                 url=request.build_absolute_uri(reverse('jira')))
 
-            return HttpResponseRedirect(reverse('jira', ))
+            return HttpResponseRedirect(reverse('jira'))
 
         return render(request, self.get_template(), {'jform': jform})
 

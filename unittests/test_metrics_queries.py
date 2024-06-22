@@ -36,7 +36,7 @@ class FindingQueriesTest(DojoTestCase):
         product_types = []
         finding_queries = views.finding_querys(
             product_types,
-            self.request
+            self.request,
         )
 
         self.assertSequenceEqual(
@@ -54,7 +54,7 @@ class FindingQueriesTest(DojoTestCase):
             product_types = []
             finding_queries = views.finding_querys(
                 product_types,
-                self.request
+                self.request,
             )
 
             self.assertSequenceEqual(
@@ -71,31 +71,31 @@ class FindingQueriesTest(DojoTestCase):
                     'start_date',
                     'end_date',
                     'form',
-                ]
+                ],
             )
 
             # Assert that we get expected querysets back. This is to be used to
             # support refactoring, in attempt of lowering the query count.
             self.assertSequenceEqual(
                 finding_queries['all'].qs.values(),
-                []
+                [],
                 # [{'id': 226, 'title': 'Test Endpoint Mitigation - Finding F1 Without Endpoints', 'date': date(2022, 10, 15), 'sla_start_date': None, 'cwe': None, 'cve': None, 'cvssv3': None, 'cvssv3_score': None, 'url': None, 'severity': 'Info', 'description': 'vulnerability', 'mitigation': '', 'impact': '', 'steps_to_reproduce': '', 'severity_justification': '', 'references': '', 'test_id': 89, 'active': True, 'verified': True, 'false_p': False, 'duplicate': False, 'duplicate_finding_id': None, 'out_of_scope': False, 'risk_accepted': False, 'under_review': False, 'last_status_update': None, 'review_requested_by_id': None, 'under_defect_review': False, 'defect_review_requested_by_id': None, 'is_mitigated': False, 'thread_id': 0, 'mitigated': None, 'mitigated_by_id': None, 'reporter_id': 1, 'numerical_severity': 'S4', 'last_reviewed': None, 'last_reviewed_by_id': None, 'param': None, 'payload': None, 'hash_code': 'a6dd6bd359ff0b504a21b8a7ae5e59f1b40dd0fa1715728bd58de8f688f01b19', 'line': None, 'file_path': '', 'component_name': None, 'component_version': None, 'static_finding': False, 'dynamic_finding': True, 'created': datetime(2022, 10, 15, 23, 12, 52, 966000, tzinfo=pytz.UTC), 'scanner_confidence': None, 'sonarqube_issue_id': None, 'unique_id_from_tool': None, 'vuln_id_from_tool': None, 'sast_source_object': None, 'sast_sink_object': None, 'sast_source_line': None, 'sast_source_file_path': None, 'nb_occurences': None, 'publish_date': None, 'service': None, 'planned_remediation_date': None, 'test__engagement__product__prod_type__member': True, 'test__engagement__product__member': True, 'test__engagement__product__prod_type__authorized_group': False, 'test__engagement__product__authorized_group': False}]
             )
             self.assertSequenceEqual(
                 finding_queries['closed'].values(),
-                []
+                [],
             )
             self.assertSequenceEqual(
                 finding_queries['accepted'].values(),
-                []
+                [],
             )
             self.assertSequenceEqual(
                 list(finding_queries['accepted_count'].values()),
-                [None, None, None, None, None, None]
+                [None, None, None, None, None, None],
             )
             self.assertSequenceEqual(
                 finding_queries['top_ten'].values(),
-                []
+                [],
             )
             self.assertSequenceEqual(
                 list(finding_queries['monthly_counts'].values()),
@@ -103,19 +103,19 @@ class FindingQueriesTest(DojoTestCase):
                     [
                         ['Timestamp', 'Date', 'S0', 'S1', 'S2', 'S3', 'Total', 'Closed'],
                         [1604188800000, datetime(2020, 11, 1, 0, 0, tzinfo=timezone.utc), 0, 0, 0, 0, 0, 0],
-                        [1606780800000, datetime(2020, 12, 1, 0, 0, tzinfo=timezone.utc), 0, 0, 0, 0, 0, 0]
+                        [1606780800000, datetime(2020, 12, 1, 0, 0, tzinfo=timezone.utc), 0, 0, 0, 0, 0, 0],
                     ],
                     [
                         ['Timestamp', 'Date', 'S0', 'S1', 'S2', 'S3', 'Total', 'Closed'],
                         [1604188800000, datetime(2020, 11, 1, 0, 0, tzinfo=timezone.utc), 0, 0, 0, 0, 0],
-                        [1606780800000, datetime(2020, 12, 1, 0, 0, tzinfo=timezone.utc), 0, 0, 0, 0, 0]
+                        [1606780800000, datetime(2020, 12, 1, 0, 0, tzinfo=timezone.utc), 0, 0, 0, 0, 0],
                     ],
                     [
                         ['Timestamp', 'Date', 'S0', 'S1', 'S2', 'S3', 'Total', 'Closed'],
                         [1604188800000, datetime(2020, 11, 1, 0, 0, tzinfo=timezone.utc), 0, 0, 0, 0, 0],
-                        [1606780800000, datetime(2020, 12, 1, 0, 0, tzinfo=timezone.utc), 0, 0, 0, 0, 0]
-                    ]
-                ]
+                        [1606780800000, datetime(2020, 12, 1, 0, 0, tzinfo=timezone.utc), 0, 0, 0, 0, 0],
+                    ],
+                ],
             )
             self.assertDictEqual(
                 finding_queries['weekly_counts'],
@@ -124,21 +124,21 @@ class FindingQueriesTest(DojoTestCase):
                         ['Timestamp', 'Date', 'S0', 'S1', 'S2', 'S3', 'Total', 'Closed'],
                         [1607299200000, datetime(2020, 12, 7, 0, 0, tzinfo=timezone.utc), 0, 0, 0, 0, 0, 0],
                         [1607904000000, datetime(2020, 12, 14, 0, 0, tzinfo=timezone.utc), 0, 0, 0, 0, 0, 0],
-                        [1608508800000, datetime(2020, 12, 21, 0, 0, tzinfo=timezone.utc), 0, 0, 0, 0, 0, 0]
+                        [1608508800000, datetime(2020, 12, 21, 0, 0, tzinfo=timezone.utc), 0, 0, 0, 0, 0, 0],
                     ],
                     'accepted_per_period': [
                         ['Timestamp', 'Date', 'S0', 'S1', 'S2', 'S3', 'Total', 'Closed'],
                         [1607299200000, datetime(2020, 12, 7, 0, 0, tzinfo=timezone.utc), 0, 0, 0, 0, 0],
                         [1607904000000, datetime(2020, 12, 14, 0, 0, tzinfo=timezone.utc), 0, 0, 0, 0, 0],
-                        [1608508800000, datetime(2020, 12, 21, 0, 0, tzinfo=timezone.utc), 0, 0, 0, 0, 0]
+                        [1608508800000, datetime(2020, 12, 21, 0, 0, tzinfo=timezone.utc), 0, 0, 0, 0, 0],
                     ],
                     'active_per_period': [
                         ['Timestamp', 'Date', 'S0', 'S1', 'S2', 'S3', 'Total', 'Closed'],
                         [1607299200000, datetime(2020, 12, 7, 0, 0, tzinfo=timezone.utc), 0, 0, 0, 0, 0],
                         [1607904000000, datetime(2020, 12, 14, 0, 0, tzinfo=timezone.utc), 0, 0, 0, 0, 0],
-                        [1608508800000, datetime(2020, 12, 21, 0, 0, tzinfo=timezone.utc), 0, 0, 0, 0, 0]
-                    ]
-                }
+                        [1608508800000, datetime(2020, 12, 21, 0, 0, tzinfo=timezone.utc), 0, 0, 0, 0, 0],
+                    ],
+                },
             )
             self.assertEqual(finding_queries['weeks_between'], 2)
             self.assertIsInstance(finding_queries['start_date'], datetime)
@@ -161,7 +161,7 @@ class EndpointQueriesTest(DojoTestCase):
         product_types = []
         endpoint_queries = views.endpoint_querys(
             product_types,
-            self.request
+            self.request,
         )
 
         self.assertSequenceEqual(
@@ -175,7 +175,7 @@ class EndpointQueriesTest(DojoTestCase):
             product_types = []
             endpoint_queries = views.endpoint_querys(
                 product_types,
-                self.request
+                self.request,
             )
 
             self.assertSequenceEqual(
@@ -192,7 +192,7 @@ class EndpointQueriesTest(DojoTestCase):
                     'start_date',
                     'end_date',
                     'form',
-                ]
+                ],
             )
 
             # Assert that we get expected querysets back. This is to be used to
@@ -205,7 +205,7 @@ class EndpointQueriesTest(DojoTestCase):
                     {'id': 4, 'date': date(2020, 7, 1), 'last_modified': datetime(2020, 7, 1, 17, 45, 39, 791907, tzinfo=pytz.UTC), 'mitigated': False, 'mitigated_time': None, 'mitigated_by_id': None, 'false_positive': False, 'out_of_scope': True, 'risk_accepted': False, 'endpoint_id': 5, 'finding_id': 229, 'endpoint__product__prod_type__member': True, 'endpoint__product__member': True, 'endpoint__product__prod_type__authorized_group': False, 'endpoint__product__authorized_group': False},
                     {'id': 5, 'date': date(2020, 7, 1), 'last_modified': datetime(2020, 7, 1, 17, 45, 39, 791907, tzinfo=pytz.UTC), 'mitigated': False, 'mitigated_time': None, 'mitigated_by_id': None, 'false_positive': False, 'out_of_scope': False, 'risk_accepted': True, 'endpoint_id': 5, 'finding_id': 230, 'endpoint__product__prod_type__member': True, 'endpoint__product__member': True, 'endpoint__product__prod_type__authorized_group': False, 'endpoint__product__authorized_group': False},
                     {'id': 7, 'date': date(2020, 7, 1), 'last_modified': datetime(2020, 7, 1, 17, 45, 39, 791907, tzinfo=pytz.UTC), 'mitigated': False, 'mitigated_time': None, 'mitigated_by_id': None, 'false_positive': False, 'out_of_scope': False, 'risk_accepted': False, 'endpoint_id': 7, 'finding_id': 227, 'endpoint__product__prod_type__member': True, 'endpoint__product__member': True, 'endpoint__product__prod_type__authorized_group': False, 'endpoint__product__authorized_group': False},
-                    {'id': 8, 'date': date(2020, 7, 1), 'last_modified': datetime(2020, 7, 1, 17, 45, 39, 791907, tzinfo=pytz.UTC), 'mitigated': False, 'mitigated_time': None, 'mitigated_by_id': None, 'false_positive': False, 'out_of_scope': False, 'risk_accepted': False, 'endpoint_id': 8, 'finding_id': 231, 'endpoint__product__prod_type__member': True, 'endpoint__product__member': True, 'endpoint__product__prod_type__authorized_group': False, 'endpoint__product__authorized_group': False}
+                    {'id': 8, 'date': date(2020, 7, 1), 'last_modified': datetime(2020, 7, 1, 17, 45, 39, 791907, tzinfo=pytz.UTC), 'mitigated': False, 'mitigated_time': None, 'mitigated_by_id': None, 'false_positive': False, 'out_of_scope': False, 'risk_accepted': False, 'endpoint_id': 8, 'finding_id': 231, 'endpoint__product__prod_type__member': True, 'endpoint__product__member': True, 'endpoint__product__prod_type__authorized_group': False, 'endpoint__product__authorized_group': False},
                 ],
             )
             self.assertSequenceEqual(
@@ -235,13 +235,13 @@ class EndpointQueriesTest(DojoTestCase):
                     [
                         ['Timestamp', 'Date', 'S0', 'S1', 'S2', 'S3', 'Total', 'Closed'],
                         [1590969600000, datetime(2020, 6, 1, 0, 0, tzinfo=timezone.utc), 0, 0, 0, 0, 0],
-                        [1593561600000, datetime(2020, 7, 1, 0, 0, tzinfo=timezone.utc), 0, 0, 0, 0, 0]
+                        [1593561600000, datetime(2020, 7, 1, 0, 0, tzinfo=timezone.utc), 0, 0, 0, 0, 0],
                     ],
                     [
                         ['Timestamp', 'Date', 'S0', 'S1', 'S2', 'S3', 'Total', 'Closed'],
                         [1590969600000, datetime(2020, 6, 1, 0, 0, tzinfo=timezone.utc), 0, 0, 0, 0, 0],
                         [1593561600000, datetime(2020, 7, 1, 0, 0, tzinfo=timezone.utc), 0, 1, 0, 0, 1],
-                    ]
+                    ],
                 ],
             )
             self.assertSequenceEqual(
@@ -251,20 +251,20 @@ class EndpointQueriesTest(DojoTestCase):
                         ['Timestamp', 'Date', 'S0', 'S1', 'S2', 'S3', 'Total', 'Closed'],
                         [1593388800000, datetime(2020, 6, 29, 0, 0, tzinfo=timezone.utc), 0, 1, 0, 0, 1, 0],
                         [1593993600000, datetime(2020, 7, 6, 0, 0, tzinfo=timezone.utc), 0, 0, 0, 0, 0, 0],
-                        [1594598400000, datetime(2020, 7, 13, 0, 0, tzinfo=timezone.utc), 0, 0, 0, 0, 0, 0]
+                        [1594598400000, datetime(2020, 7, 13, 0, 0, tzinfo=timezone.utc), 0, 0, 0, 0, 0, 0],
                     ],
                     [
                         ['Timestamp', 'Date', 'S0', 'S1', 'S2', 'S3', 'Total', 'Closed'],
                         [1593388800000, datetime(2020, 6, 29, 0, 0, tzinfo=timezone.utc), 0, 0, 0, 0, 0],
                         [1593993600000, datetime(2020, 7, 6, 0, 0, tzinfo=timezone.utc), 0, 0, 0, 0, 0],
-                        [1594598400000, datetime(2020, 7, 13, 0, 0, tzinfo=timezone.utc), 0, 0, 0, 0, 0]
+                        [1594598400000, datetime(2020, 7, 13, 0, 0, tzinfo=timezone.utc), 0, 0, 0, 0, 0],
                     ],
                     [
                         ['Timestamp', 'Date', 'S0', 'S1', 'S2', 'S3', 'Total', 'Closed'],
                         [1593388800000, datetime(2020, 6, 29, 0, 0, tzinfo=timezone.utc), 0, 1, 0, 0, 1],
                         [1593993600000, datetime(2020, 7, 6, 0, 0, tzinfo=timezone.utc), 0, 1, 0, 0, 1],
-                        [1594598400000, datetime(2020, 7, 13, 0, 0, tzinfo=timezone.utc), 0, 1, 0, 0, 1]
-                    ]
+                        [1594598400000, datetime(2020, 7, 13, 0, 0, tzinfo=timezone.utc), 0, 1, 0, 0, 1],
+                    ],
                 ],
             )
             self.assertEqual(endpoint_queries['weeks_between'], 2)
